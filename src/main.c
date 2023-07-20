@@ -6,93 +6,58 @@
 /*   By: palucena <palucena@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 21:15:01 by palucena          #+#    #+#             */
-/*   Updated: 2023/07/18 13:26:27 by palucena         ###   ########.fr       */
+/*   Updated: 2023/07/20 20:12:25 by palucena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/MLX/include/MLX42/MLX42.h"
-#include <stdlib.h>
-#include <stdio.h>
-#include <unistd.h>
-#define WIDTH 1024
-#define HEIGHT 1024
+#include "../includes/fractol.h"
 
-/* static void	ft_error(void)
+/*
+int	main(int ac, char **av)
 {
-	fprintf(stderr, "%s", mlx_strerror(mlx_errno));
-	exit(EXIT_FAILURE);
-}
+	t_fractol	fractal;
 
-static void	ft_hook(void	*param)
-{
-	const mlx_t	*mlx = param;
-
-	printf("WIDTH: %d | HEIGHT: %d\n", mlx->width, mlx->height);
-}
-
-int32_t	main(void)
-{
-	mlx_t		*mlx;
-	mlx_image_t	*img;
-	int			x = 0;
-	int			y = 0;
-
-	mlx = mlx_init(WIDTH, HEIGHT, "Avestruz", true); // Nueva ventana
-	img = mlx_new_image(mlx, 256, 256); // Nueva imagen
-	if (!mlx)
-		ft_error();
-	if (!img || (mlx_image_to_window(mlx, img, 0, 0) < 0))
-		ft_error();
-	mlx_put_pixel(img, 0, 0, 0xFF0000); // Pone un pixel en la posicion (x, y)
-	while (x < WIDTH)
+	create_window(&fractal);
+	if (strcmp(av[1], "Mandelbrot") == 0)
+		mandel(&fractal); //
+	else if (strcmp(av[1], "Julia") == 0)
+		julia(&fractal);
+	else if (strcmp(av[1], "Burningship") == 0)
+		burning_ship(&fractal);
+	else
 	{
-		while (y < HEIGHT)
-			mlx_put_pixel(img, x, ++y, 0xFF0000); // Va rellenando "y"
-		mlx_put_pixel(img, ++x, y, 0xFF000000); // Va rellenando "x"
-		y = 0;
+		ft_putstr_fd("\nError: Wrong arguments\n", 1);
+		ft_putstr_fd("Example: ./fractol Mandelbrot\n", 1);
 	}
-	mlx_loop_hook(mlx, ft_hook, mlx);
-	mlx_loop(mlx);
-	mlx_terminate(mlx);
-	return (0);
+	loop(&fractal);
+	return(0);
 } */
 
-// Exit the program as failure.
-static void	ft_error(void)
+int	main(void)
 {
-	fprintf(stderr, "%s", mlx_strerror(mlx_errno));
-	exit(EXIT_FAILURE);
-}
+/* 	void	*mlx_ptr;
+	void	*win_ptr; */
+	t_fractol	cosas;
+	int			x;
+	int			y;
+	int			color;
 
-// Print the window width and height.
-static void	ft_hook(void	*param)
-{
-	const mlx_t	*mlx = param;
-
-	printf("WIDTH: %d | HEIGHT: %d\n", mlx->width, mlx->height);
-}
-
-int32_t	main(void)
-{
-	int			x = 0;
-	int			y = 0;
-	mlx_t		*mlx = mlx_init(WIDTH, HEIGHT, "42Balls", true);
-	mlx_image_t	*img = mlx_new_image(mlx, WIDTH, HEIGHT);
-
-	if (!mlx)
-		ft_error();
-	if (!img || (mlx_image_to_window(mlx, img, 0, 0) < 0))
-		ft_error();
-	mlx_put_pixel(img, 0, 0, 0x0000FFFF);
-	while (x < WIDTH)
+	create_window(&cosas);
+	y = 0;
+	while (y <= HEIGHT)
 	{
-		while (y < HEIGHT)
-			mlx_put_pixel(img, x, y++, 0x0000FFFF);
-		x++;
-		y = 0;
+		x = 0;
+		if (y >= HEIGHT / 5 * 2 && y < HEIGHT / 5 * 3)
+			color = 0xFFFFFF;
+		else
+			color = 0x008F0D0D;
+		while (x <= WIDTH)
+		{
+			mlx_pixel_put(cosas.mlx, cosas.win, x, y, color);
+			x++;
+		}
+		y++;
 	}
-	mlx_loop_hook(mlx, ft_hook, mlx);
-	mlx_loop(mlx);
-	mlx_terminate(mlx);
-	return (EXIT_SUCCESS);
+	loop(&cosas);
+	return (0);
 }

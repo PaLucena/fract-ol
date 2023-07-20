@@ -6,12 +6,15 @@
 /*   By: palucena <palucena@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 20:38:50 by palucena          #+#    #+#             */
-/*   Updated: 2023/07/17 19:01:18 by palucena         ###   ########.fr       */
+/*   Updated: 2023/07/20 20:20:07 by palucena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FRACTOL_H
 # define FRACTOL_H
+
+#define WIDTH 1024
+#define HEIGHT 512
 
 # include <unistd.h>
 # include <stdio.h>
@@ -22,12 +25,19 @@
 # include <sys/wait.h>
 # include <math.h>
 # include "libft/libft.h"
-# include "MLX42/include/MLX42/MLX42.h"
+# include "../mlx/mlx.h"
 
-typedef struct fractal
+# define ESC_KEY 53
+
+typedef struct s_fractol
 {
-	int	x;
-	int	y;
-}			t_fractal;
+	void	*mlx;
+	void	*win;
+	int		size_x;
+	int		size_y;
+}			t_fractol;
+
+void		create_window(t_fractol *fractal);
+void		loop(t_fractol *fractal);
 
 #endif
