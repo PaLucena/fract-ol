@@ -6,7 +6,7 @@
 /*   By: palucena <palucena@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 21:15:01 by palucena          #+#    #+#             */
-/*   Updated: 2023/07/26 18:40:53 by palucena         ###   ########.fr       */
+/*   Updated: 2023/07/27 18:35:00 by palucena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,31 +21,34 @@ void	create_window(t_info *info)
 	info->win = mlx_new_image(info->mlx, WIDTH, HEIGHT);
 	if (!info->win)
 		exit(EXIT_FAILURE);
-	info->size_x = 0;
-	info->size_y = 0;
-	info->iterations = 50;
+	info->pos_x = 0;
+	info->pos_y = 0;
+	info->max_iterations = 50;
 	mlx_image_to_window(info->mlx, info->win, 0, 0);
-	mlx_loop_hook(info->mlx, &hook, &info);
-	mlx_key_hook(info->mlx, &my_keyhook, &info);
+	mlx_key_hook(info->mlx, &hook, &info);
+//	mlx_loop_hook(info->mlx, &hook, &info);
 	mlx_scroll_hook(info->mlx, &my_scrollhook, &info);
 }
-
-uint32_t get_rgba(int r, int g, int b, int a)
-{
-    return (r << 24 | g << 16 | b << 8 | a);
-} // Como vergas se ponen los colores en esta libreria de mierda?????
 
 int32_t	main(int ac, char **av)
 {
 	t_info	info;
 
-	create_window(&info);
-	while (info.size_y < HEIGHT)
+	if (ac < 2)
 	{
-		info.size_x = -1;
-		while (++info.size_x < WIDTH)
-			fractal(av[1], &info);
-		info.size_y++;
+	//	ft_putstr_fd("Esta mal", 1);
+		exit (1);
+	}
+	else
+	{
+		create_window(&info);
+		while (info.pos_y < HEIGHT)
+		{
+			info.pos_x = -1;
+			while (++info.pos_x < WIDTH)
+				fractal(av[1], &info);
+			info.pos_y++;
+		}
 	}
 	mlx_loop(info.mlx);
 	mlx_delete_image(info.mlx, info.win);
