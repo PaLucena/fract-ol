@@ -6,58 +6,49 @@
 /*   By: palucena <palucena@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 21:15:01 by palucena          #+#    #+#             */
-/*   Updated: 2023/07/20 20:12:25 by palucena         ###   ########.fr       */
+/*   Updated: 2023/07/26 18:40:53 by palucena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fractol.h"
 
-/*
-int	main(int ac, char **av)
+void	create_window(t_info *info)
 {
-	t_fractol	fractal;
+//	mlx_set_setting(MLX_FULLSCREEN, true); KLK
+	info->mlx = mlx_init(WIDTH, HEIGHT, "Banderas", true);
+	if (!info->mlx)
+		exit(EXIT_FAILURE);
+	info->win = mlx_new_image(info->mlx, WIDTH, HEIGHT);
+	if (!info->win)
+		exit(EXIT_FAILURE);
+	info->size_x = 0;
+	info->size_y = 0;
+	info->iterations = 50;
+	mlx_image_to_window(info->mlx, info->win, 0, 0);
+	mlx_loop_hook(info->mlx, &hook, &info);
+	mlx_key_hook(info->mlx, &my_keyhook, &info);
+	mlx_scroll_hook(info->mlx, &my_scrollhook, &info);
+}
 
-	create_window(&fractal);
-	if (strcmp(av[1], "Mandelbrot") == 0)
-		mandel(&fractal); //
-	else if (strcmp(av[1], "Julia") == 0)
-		julia(&fractal);
-	else if (strcmp(av[1], "Burningship") == 0)
-		burning_ship(&fractal);
-	else
+uint32_t get_rgba(int r, int g, int b, int a)
+{
+    return (r << 24 | g << 16 | b << 8 | a);
+} // Como vergas se ponen los colores en esta libreria de mierda?????
+
+int32_t	main(int ac, char **av)
+{
+	t_info	info;
+
+	create_window(&info);
+	while (info.size_y < HEIGHT)
 	{
-		ft_putstr_fd("\nError: Wrong arguments\n", 1);
-		ft_putstr_fd("Example: ./fractol Mandelbrot\n", 1);
+		info.size_x = -1;
+		while (++info.size_x < WIDTH)
+			fractal(av[1], &info);
+		info.size_y++;
 	}
-	loop(&fractal);
+	mlx_loop(info.mlx);
+	mlx_delete_image(info.mlx, info.win);
+	mlx_terminate(info.mlx);
 	return(0);
-} */
-
-int	main(void)
-{
-/* 	void	*mlx_ptr;
-	void	*win_ptr; */
-	t_fractol	cosas;
-	int			x;
-	int			y;
-	int			color;
-
-	create_window(&cosas);
-	y = 0;
-	while (y <= HEIGHT)
-	{
-		x = 0;
-		if (y >= HEIGHT / 5 * 2 && y < HEIGHT / 5 * 3)
-			color = 0xFFFFFF;
-		else
-			color = 0x008F0D0D;
-		while (x <= WIDTH)
-		{
-			mlx_pixel_put(cosas.mlx, cosas.win, x, y, color);
-			x++;
-		}
-		y++;
-	}
-	loop(&cosas);
-	return (0);
 }
