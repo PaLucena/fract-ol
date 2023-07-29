@@ -6,7 +6,7 @@
 /*   By: palucena <palucena@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 16:41:45 by palucena          #+#    #+#             */
-/*   Updated: 2023/07/27 20:06:40 by palucena         ###   ########.fr       */
+/*   Updated: 2023/07/29 13:31:41 by palucena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	hook(mlx_key_data_t keydata, void	*param)
 	if (keydata.action == MLX_RELEASE)
 	{
 		if (keydata.key == MLX_KEY_UP) // Todavia no se como va esto
-			info->pos_y += 0.05;
+			info->pos_y += 1;
 /* 		if (keydata.key == MLX_KEY_DOWN)
 			info->win->instances[0].y += 5;
 		if (keydata.key == MLX_KEY_LEFT)
