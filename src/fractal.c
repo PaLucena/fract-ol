@@ -41,7 +41,7 @@ void	fractal(char	*av, t_info *info)
 	i = 0;
 	while (i <= info->max_iterations)
 	{
-		printf("x = %f y = %f\n", x, y);
+		//printf("x = %f y = %f\n", x, y);
 		info->real = (x * x) - (y * y);
 		info->imag = 2 * x * y;
 		z = info->real + info->imag + x + y;
@@ -66,6 +66,7 @@ void	mandelbrot(t_info *info)
 	y = (info->pos_y / 0.03) + (-1.21); // HEIGHT / (-2) + info->pos_y; // (info->y / info->zoom) + info->offset_y;
 	while (++i < info->max_iterations)
 	{
+		//printf("x = %f y = %f\n", x, y);
 		x_temp = info->real * info->real - info->imag * info->imag + x;
 		info->imag = 2. * info->real * info->imag + y;
 		info->real = x_temp;
@@ -73,10 +74,6 @@ void	mandelbrot(t_info *info)
 		break ;
 	}
 	draw_pixel(info, i);
-	/* if (i == info->max_iterations)
-		put_color_to_pixel(info, x, y, 0x000000);
-	else
-		put_color_to_pixel(info, x, y, (info->color * i)); */
 } // Robado
 
 // void	julia(t_info *info)  Paso a paso

@@ -6,15 +6,15 @@
 /*   By: palucena <palucena@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 20:38:50 by palucena          #+#    #+#             */
-/*   Updated: 2023/07/29 15:50:24 by palucena         ###   ########.fr       */
+/*   Updated: 2023/08/14 17:22:20 by palucena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FRACTOL_H
 # define FRACTOL_H
 
-#define WIDTH 256
-#define HEIGHT 256
+#define WIDTH 512
+#define HEIGHT 512
 
 # include <unistd.h>
 # include <stdio.h>

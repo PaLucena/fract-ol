@@ -6,7 +6,7 @@
 /*   By: palucena <palucena@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 21:15:01 by palucena          #+#    #+#             */
-/*   Updated: 2023/07/29 15:38:00 by palucena         ###   ########.fr       */
+/*   Updated: 2023/08/14 16:04:32 by palucena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	create_window(t_info *info)
 {
 //	mlx_set_setting(MLX_FULLSCREEN, true); KLK
-	info->mlx = mlx_init(WIDTH, HEIGHT, "Banderas", true);
+	info->mlx = mlx_init(WIDTH, HEIGHT, "fract-ol", true);
 	if (!info->mlx)
 		exit(EXIT_FAILURE);
 	info->win = mlx_new_image(info->mlx, WIDTH, HEIGHT);
