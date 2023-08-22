@@ -6,7 +6,7 @@ SEGFAULT_FLAG = -fsanitize=address  # para ver donde hay segmentation fault #
 RM = rm -rf
 
 SRC_PATH = src/
-SRC = main.c hooks.c fractal.c image.c
+SRC = main.c hooks.c fractal.c image.c init.c
 OBJ_PATH = objs/
 OBJ = $(addprefix $(OBJ_PATH), $(SRC:.c=.o))
 

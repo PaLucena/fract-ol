@@ -6,7 +6,7 @@
 /*   By: palucena <palucena@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 16:41:45 by palucena          #+#    #+#             */
-/*   Updated: 2023/07/29 13:31:41 by palucena         ###   ########.fr       */
+/*   Updated: 2023/08/22 16:39:03 by palucena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ void	hook(mlx_key_data_t keydata, void	*param)
 	if (keydata.action == MLX_RELEASE)
 	{
 		if (keydata.key == MLX_KEY_UP) // Todavia no se como va esto
-			info->pos_y += 1;
+		//	info->pos_y += 1;
+			puts("Up!");
 /* 		if (keydata.key == MLX_KEY_DOWN)
 			info->win->instances[0].y += 5;
 		if (keydata.key == MLX_KEY_LEFT)
@@ -54,7 +55,19 @@ void	my_scrollhook(double x, double y, void *param)
 	info = (t_info *)param;
 	(void)x;
 	if (y > 0)
-		puts("Up!");
+	{
+		info->zoom /= 1.1;
+		puts("Zoom in");
+	}
 	else if (y < 0)
-		puts("Down!");
+	{
+		info->zoom *= 1.1;
+		puts("Zoom out");
+	}
 }
+
+/* void	my_mousehook(int m_code, int x, int y, t_info *info)
+{
+	if (m_code == 4) // ARRIBA
+		info->zoom
+} */
