@@ -15,18 +15,30 @@
 void	mandelbrot(t_info *info);
 void	julia(t_info *info);
 
-void	fractal(char	*av, t_info *info)
+
+void	fractal(char *fr, t_info *info)
 {
-	if (strcmp(av, "mandelbrot") == 0 || strcmp(av, "Mandelbrot") == 0)
+	if (ft_strncmp(fr, "mandelbrot", 8) == 0 || ft_strncmp(fr, "1", 1) == 0)
 		mandelbrot(info);
-	else if (strcmp(av, "julia") == 0 || strcmp(av, "Julia") == 0)
+	else if (ft_strncmp(fr, "julia", 5) == 0 || ft_strncmp(fr, "2", 1) == 0)
 		julia(info);
-	/* else if (strcmp(av, "burningship") == 0 || strcmp(av, "Burningship") == 0)
-		burningship(&info); */ // Paso a paso
+	/* else if (strcmp(fr, "burningship") == 0 || strcmp(fr, "Burningship") == 0)
+		burningship(info); */ // Paso a paso
 	else
+		exit (1);
+}
+
+void	print_fractal(t_info *info)
+{
+	info->pos_y = 0;
+	while (info->pos_y < HEIGHT)
 	{
-	//	ft_putstr_fd("\nError: Wrong arguments\n", 1);
-	//	ft_putstr_fd("Example: ./fractol mandelbrot\n", 1);
+		info->pos_x = -1;
+		while (++info->pos_x < WIDTH)
+		{
+			fractal(info->name, info);
+		}
+		info->pos_y++;
 	}
 }
 
@@ -38,8 +50,8 @@ void	mandelbrot(t_info *info)
 	double	tmp;
 	int		i;
 
-	cx = (info->pos_x - WIDTH / 2) * info->zoom / WIDTH - 0.5;
-	cy = (info->pos_y - (HEIGHT / 2)) * (info->zoom / HEIGHT);
+	cx = (info->pos_x - WIDTH / 2) * info->zoom / WIDTH + info->offset_x;
+	cy = (info->pos_y - HEIGHT / 2) * info->zoom / HEIGHT + info->offset_y;
 	i = 0;
 	info->zx = 0.0;
 	info->zy = 0.0;
@@ -65,11 +77,11 @@ void	julia(t_info *info)
 	double	tmp;
 	int		i;
 
-	cx = -0.8;
-	cy = 0.156;
+	cx = -0.65; //
+	cy = -0.45; //
 	i = 0;
-	info->zx = (info->pos_x - WIDTH / 2) * info->zoom / WIDTH;
-	info->zy = (info->pos_y - (HEIGHT / 2)) * (info->zoom / HEIGHT);
+	info->zx = (info->pos_x - WIDTH / 2 + info->offset_x) * info->zoom / WIDTH;
+	info->zy = (info->pos_y - HEIGHT / 2 + info->offset_y) * (info->zoom / HEIGHT);
 	while (i <= info->max_iterations)
 	{
 		if (z >= 4.0)

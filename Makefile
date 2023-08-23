@@ -13,6 +13,7 @@ OBJ = $(addprefix $(OBJ_PATH), $(SRC:.c=.o))
 BREW = "/Users/$(USER)/.brew/opt/glfw/lib/"
 INC = -I includes/libft
 MLX = includes/MLX42/libmlx42.a
+LIBFT = includes/libft/libft.a
 
 
 all: libft $(NAME)

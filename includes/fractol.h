@@ -6,7 +6,7 @@
 /*   By: palucena <palucena@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 20:38:50 by palucena          #+#    #+#             */
-/*   Updated: 2023/08/22 16:59:00 by palucena         ###   ########.fr       */
+/*   Updated: 2023/08/23 18:45:37 by palucena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 
 typedef struct s_info
 {
+	char					*name;
 	mlx_t					*mlx; // instance
 	mlx_image_t				*win; // image
 	int32_t					pos_x; // valor de x en la ventana
@@ -36,23 +37,31 @@ typedef struct s_info
 	double					zx;
 	double					zy;
 	double					zoom;
+	double					offset_x;
+	double					offset_y;
 	int						max_iterations;
 //	struct mlx_key_data		keydata;
 }			t_info;
 
+
+
 /*				fractal.c				*/
-void		fractal(char	*av, t_info *info);
+void	print_fractal(t_info *info);
 
 /*				hooks.c					*/
 void		hook(mlx_key_data_t keydata, void *param);
 //void		my_keyhook(mlx_key_data_t mlx_keydata, void *param);
-void		my_scrollhook(double x, double y, void *param);
-
+void	my_scrollhook(double x, double y, void *param);
+//void	my_mousehook(mouse_key_t m_code, action_t x, modifier_key_t y, void *param);
 /*				image.c					*/
-void		draw_pixel(t_info	*info, int	n);
+void		draw_pixel(t_info *info, int	n);
 
 /*				init.c					*/
-void		create_window(t_info *info);
+t_info		*create_window(void);
+
+/*				utils.c					*/
+//int			check_args(int ac, char *fr);
+//double		ft_atof(char *nb);
 
 
 #endif
