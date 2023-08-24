@@ -17,13 +17,13 @@ void	julia(t_info *info);
 void	burningship(t_info *info);
 
 
-void	fractal(char *fr, t_info *info)
+void	fractal(t_info *info)
 {
-	if (ft_strncmp(fr, "mandelbrot", 8) == 0 || ft_strncmp(fr, "1", 1) == 0)
+	if (info->name == 1)
 		mandelbrot(info);
-	else if (ft_strncmp(fr, "julia", 5) == 0 || ft_strncmp(fr, "2", 1) == 0)
+	else if (info->name == 2)
 		julia(info);
-	else if (ft_strncmp(fr, "burningship", 11) == 0 || ft_strncmp(fr, "3", 1) == 0)
+	else if (info->name == 3)
 		burningship(info); // Paso a paso
 	else
 		exit (1);
@@ -36,9 +36,7 @@ void	print_fractal(t_info *info)
 	{
 		info->pos_x = -1;
 		while (++info->pos_x < WIDTH)
-		{
-			fractal(info->name, info);
-		}
+			fractal(info);
 		info->pos_y++;
 	}
 }
@@ -60,12 +58,12 @@ void	mandelbrot(t_info *info)
 		tmp = info->zx * info->zx - info->zy * info->zy + cx;
 		info->zy = 2 * info->zx * info->zy + cy;
 		info->zx = tmp;
-		if (fabs(info->zx) + fabs(info->zy) >= 2.0)
+		if (fabs(info->zx) + fabs(info->zy) >= LIMIT)
 			break ;
 		i++;
 	}
 	draw_pixel(info, i);
-} // Mio
+}
 
 void	julia(t_info *info)
 {
@@ -84,7 +82,7 @@ void	julia(t_info *info)
 		tmp = info->zx * info->zx - info->zy * info->zy + cx;
 		info->zy = 2 * info->zx * info->zy + cy;
 		info->zx = tmp;
-		if (fabs(info->zx) + fabs(info->zy) >= 2.0)
+		if (fabs(info->zx) + fabs(info->zy) >= LIMIT)
 			break ;
 		i++;
 	}
@@ -92,6 +90,33 @@ void	julia(t_info *info)
 }
 
 void	burningship(t_info *info)
+{
+	double	cx;
+	double	cy;
+	double	tmp;
+	int		i;
+
+	//info->offset_y = -0.4;
+	cx = (info->pos_x - WIDTH / 2) * info->zoom / WIDTH + info->offset_x;
+	cy = (info->pos_y - HEIGHT / 2) * info->zoom / HEIGHT + info->offset_y;
+	i = 1;
+	info->zx = 0.0;
+	info->zy = 0.0;
+	while (i <= info->max_iterations)
+	{
+		info->zx = fabs(info->zx);
+		info->zy = fabs(info->zy);
+		tmp = info->zx * info->zx - info->zy * info->zy + cx;
+		info->zy = 2 * info->zx * info->zy + cy;
+		info->zx = tmp;
+		if (fabs(info->zx) + fabs(info->zy) >= LIMIT)
+			break ;
+		i++;
+	}
+	draw_pixel(info, i);
+} // No funciona YET
+
+/* void	el4(t_info *info)
 {
 	double	cx;
 	double	cy;
@@ -106,14 +131,14 @@ void	burningship(t_info *info)
 	while (i <= info->max_iterations)
 	{
 		tmp = info->zx * info->zx - info->zy * info->zy + cx;
-		info->zy = 2 * info->zx * info->zy + cy;
+		info->zy = -2 * info->zx * info->zy + cy;
 		info->zx = tmp;
 		if (fabs(info->zx) + fabs(info->zy) >= 2.0)
 			break ;
 		i++;
 	}
 	draw_pixel(info, i);
-} // No funciona YET
+} */ // Esto es un fractal?
 
 /* void	ese_raro(t_info *info)
 {
