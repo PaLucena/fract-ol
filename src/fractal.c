@@ -14,6 +14,7 @@
 
 void	mandelbrot(t_info *info);
 void	julia(t_info *info);
+void	burningship(t_info *info);
 
 
 void	fractal(char *fr, t_info *info)
@@ -22,8 +23,8 @@ void	fractal(char *fr, t_info *info)
 		mandelbrot(info);
 	else if (ft_strncmp(fr, "julia", 5) == 0 || ft_strncmp(fr, "2", 1) == 0)
 		julia(info);
-	/* else if (strcmp(fr, "burningship") == 0 || strcmp(fr, "Burningship") == 0)
-		burningship(info); */ // Paso a paso
+	else if (ft_strncmp(fr, "burningship", 11) == 0 || ft_strncmp(fr, "3", 1) == 0)
+		burningship(info); // Paso a paso
 	else
 		exit (1);
 }
@@ -46,24 +47,21 @@ void	mandelbrot(t_info *info)
 {
 	double	cx;
 	double	cy;
-	double	z;
 	double	tmp;
 	int		i;
 
 	cx = (info->pos_x - WIDTH / 2) * info->zoom / WIDTH + info->offset_x;
 	cy = (info->pos_y - HEIGHT / 2) * info->zoom / HEIGHT + info->offset_y;
-	i = 0;
+	i = 1;
 	info->zx = 0.0;
 	info->zy = 0.0;
 	while (i <= info->max_iterations)
 	{
-		if (z >= 4.0)
-			break ;
-		// printf("x = %f y = %f\n", x, y);
 		tmp = info->zx * info->zx - info->zy * info->zy + cx;
 		info->zy = 2 * info->zx * info->zy + cy;
 		info->zx = tmp;
-		z = info->zx * info->zx + info->zy * info->zy;
+		if (fabs(info->zx) + fabs(info->zy) >= 2.0)
+			break ;
 		i++;
 	}
 	draw_pixel(info, i);
@@ -73,28 +71,49 @@ void	julia(t_info *info)
 {
 	double	cx;
 	double	cy;
-	double	z;
 	double	tmp;
 	int		i;
 
 	cx = -0.65; //
 	cy = -0.45; //
-	i = 0;
-	info->zx = (info->pos_x - WIDTH / 2 + info->offset_x) * info->zoom / WIDTH;
-	info->zy = (info->pos_y - HEIGHT / 2 + info->offset_y) * (info->zoom / HEIGHT);
+	i = 1;
+	info->zx = ((info->pos_x - WIDTH / 2 + info->offset_x) * info->zoom / WIDTH) * (-1);
+	info->zy = ((info->pos_y - HEIGHT / 2 + info->offset_y) * info->zoom / HEIGHT) * (-1);
 	while (i <= info->max_iterations)
 	{
-		if (z >= 4.0)
-			break ;
-		// printf("x = %f y = %f\n", x, y);
 		tmp = info->zx * info->zx - info->zy * info->zy + cx;
 		info->zy = 2 * info->zx * info->zy + cy;
 		info->zx = tmp;
-		z = info->zx * info->zx + info->zy * info->zy;
+		if (fabs(info->zx) + fabs(info->zy) >= 2.0)
+			break ;
 		i++;
 	}
 	draw_pixel(info, i);
 }
+
+void	burningship(t_info *info)
+{
+	double	cx;
+	double	cy;
+	double	tmp;
+	int		i;
+
+	cx = (info->pos_x - WIDTH / 2) * info->zoom / WIDTH + info->offset_x;
+	cy = (info->pos_y - HEIGHT / 2) * info->zoom / HEIGHT + info->offset_y;
+	i = 1;
+	info->zx = 0.0;
+	info->zy = 0.0;
+	while (i <= info->max_iterations)
+	{
+		tmp = info->zx * info->zx - info->zy * info->zy + cx;
+		info->zy = 2 * info->zx * info->zy + cy;
+		info->zx = tmp;
+		if (fabs(info->zx) + fabs(info->zy) >= 2.0)
+			break ;
+		i++;
+	}
+	draw_pixel(info, i);
+} // No funciona YET
 
 /* void	ese_raro(t_info *info)
 {
@@ -111,7 +130,6 @@ void	julia(t_info *info)
 	i = 0;
 	while (i <= info->max_iterations)
 	{
-		// printf("x = %f y = %f\n", x, y);
 		tmp = info->zx * info->zx - info->zy * info->zy + x * 0.02;
 		info->zy = 2 * info->zx * info->zy + y * 0.02;
 		info->zx = tmp;
@@ -122,6 +140,3 @@ void	julia(t_info *info)
 	}
 	draw_pixel(info, i);
 } */ // Pseudo fractal aleatorio encontrado sin querer
-
-
-//void	burningship(t_info *info) Paso a paso

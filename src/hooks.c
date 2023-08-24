@@ -6,7 +6,7 @@
 /*   By: palucena <palucena@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 16:41:45 by palucena          #+#    #+#             */
-/*   Updated: 2023/08/23 19:35:04 by palucena         ###   ########.fr       */
+/*   Updated: 2023/08/24 12:45:04 by palucena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ void	hook(mlx_key_data_t keydata, void	*param)
 	if (keydata.action == MLX_RELEASE)
 	{
 		if (keydata.key == MLX_KEY_O)
-			info->max_iterations += 5;
-		if (keydata.key == MLX_KEY_P) // Todavia no se como va esto
 			info->max_iterations -= 5;
-		if (keydata.key == MLX_KEY_UP) // Todavia no se como va esto
+		if (keydata.key == MLX_KEY_P)
+			info->max_iterations += 5;
+		if (keydata.key == MLX_KEY_UP)
 			info->offset_y += 0.1;
  		if (keydata.key == MLX_KEY_DOWN)
 			info->offset_y -= 0.1;
