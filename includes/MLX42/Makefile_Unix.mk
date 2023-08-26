@@ -6,7 +6,7 @@
 #    By: palucena <palucena@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/26 21:36:38 by W2Wizard          #+#    #+#              #
-#    Updated: 2023/07/25 20:28:39 by palucena         ###   ########.fr        #
+#    Updated: 2023/08/26 18:19:41 by palucena         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,15 +25,15 @@ RESET	:= \033[0m
 #//= Make Rules =//#
 $(NAME): $(OBJS)
 	@ar rc $@ $^
-	@echo "$(GREEN)$(BOLD)Done$(RESET)"
+	@echo "\n\t\t  $(GREEN)$(BOLD)----MLX42 compiled----$(BOLD)$(GREEN)\n"
 
 %.o: %.c $(HDRS)
-	@echo "$(GREEN)$(BOLD)Compiling:$(RESET) $(notdir $<)"
+#	@echo "$(GREEN)$(BOLD)Compiling:$(RESET) $(notdir $<)"
 	@$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS)
 
 # Convert shaders to .c files
 $(SRC_DIR)/mlx_%_shader.c: $(SHADER_DIR)/default.%
-	@echo "$(GREEN)$(BOLD)Shader to C: $< -> $@$(RESET)"
+#	@echo "$(GREEN)$(BOLD)Shader to C: $< -> $@$(RESET)"
 	@bash tools/compile_shader.sh $< > $@
 
 clean:

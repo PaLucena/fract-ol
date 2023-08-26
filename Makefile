@@ -6,31 +6,38 @@ SEGFAULT_FLAG = -fsanitize=address  # para ver donde hay segmentation fault #
 RM = rm -rf
 
 SRC_PATH = src/
-SRC = main.c hooks.c fractal.c image.c init.c utils.c
 OBJ_PATH = objs/
-OBJ = $(addprefix $(OBJ_PATH), $(SRC:.c=.o))
+SRC =  $(wildcard $(SRC_PATH)*.c)
+OBJ = $(SRC:$(SRC_PATH)%.c=$(OBJ_PATH)%.o)
 
 BREW = "/Users/$(USER)/.brew/opt/glfw/lib/"
-INC = -I includes/libft
+INC = -I includes/libft -I ./includes -I ./includes/MLX42/include/MLX42
 MLX = includes/MLX42/libmlx42.a
 LIBFT = includes/libft/libft.a
 
+#//= Colors =//#
+BOLD	:= \033[1m
+BLACK	:= \033[30;1m
+RED		:= \033[31;1m
+GREEN	:= \033[32;1m
+YELLOW	:= \033[33;1m
+BLUE	:= \033[34;1m
+MAGENTA	:= \033[35;1m
+CYAN	:= \033[36;1m
+WHITE	:= \033[37;1m
+RESET	:= \033[0m
 
-all: libft $(NAME)
+all: mlx libft $(NAME)
 
 bonus: libft $(NAME_BONUS)
 
-$(NAME): libft mlx $(OBJ)
-	@ gcc $(SEGFAULT_FLAG) $(CFLAGS) $(OBJ) $(MLX) -lglfw -L $(BREW) $(INC) -o $(NAME) $(LIBFT)
-	@ echo "\n\t\t\033[32m----Fractol compiled----\n"
+$(NAME): $(OBJ)
+	@ gcc $(SEGFAULT_FLAG) $(FLAGS) $(OBJ) $(LIBFT) $(MLX) -lglfw -L $(BREW) -o $(NAME)
+	@ echo "\n\t\t$(GREEN)$(BOLD)----Fract'ol compiled----\n"
 
 $(OBJ_PATH)%.o: $(SRC_PATH)%.c
-	@ mkdir -p $(OBJ_PATH)
-	@ $(CC) $(FLAGS) -c $< -o $@
-
-$(OBJ_PATH)%.o: $(SRC_BONUS_PATH)%.c
-	@ mkdir -p $(OBJ_PATH)
-	@ $(CC) $(FLAGS) -c $< -o $@
+	@ mkdir -p  $(OBJ_PATH)
+	@ $(CC) $(FLAGS) $(INC) -c $< -o $@
 
 libft:
 	@ make -C includes/libft/
@@ -45,7 +52,7 @@ re_bonus: fclean bonus
 clean:
 	@ $(RM) -r $(OBJ_PATH)
 	@ make -C includes/libft/ clean
-	@ echo "\n\t\t\033[31m----Deleting everything----\n"
+	@ echo "\n\t\t\t$(RED)$(BOLD)Cleaning...\n"
 
 fclean: clean
 	@ $(RM) $(NAME) $(NAME_BONUS)

@@ -6,91 +6,105 @@
 /*   By: palucena <palucena@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 16:41:45 by palucena          #+#    #+#             */
-/*   Updated: 2023/08/24 17:11:26 by palucena         ###   ########.fr       */
+/*   Updated: 2023/08/26 19:40:17 by palucena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/fractol.h"
+#include "fractol.h"
 
-void	hook2(mlx_key_data_t keydata, t_info *info)
+void	hook3(t_info *info)
 {
-	if (keydata.key == MLX_KEY_O)
+	if (mlx_is_key_down(info->mlx, MLX_KEY_O))
 		info->max_iterations -= 5;
-	if (keydata.key == MLX_KEY_P)
+	if (mlx_is_key_down(info->mlx, MLX_KEY_P))
 		info->max_iterations += 5;
-	if (keydata.key == MLX_KEY_R)
-		init_fract(info);
-	if (keydata.key == MLX_KEY_F)
+	if (mlx_is_key_down(info->mlx, MLX_KEY_4))
 	{
-		if (info->name == 3)
-			info->name = 1;
-		else
-			info->name++;
-		init_fract(info);
+		info->color = 0;
+		info->palette = &info->palettes[info->color];
 	}
+	if (mlx_is_key_down(info->mlx, MLX_KEY_5))
+	{
+		info->color = 1;
+		info->palette = &info->palettes[info->color];
+	}
+	if (mlx_is_key_down(info->mlx, MLX_KEY_6))
+	{
+		info->color = 2;
+		info->palette = &info->palettes[info->color];
+	}
+	if (mlx_is_key_down(info->mlx, MLX_KEY_ESCAPE))
+		mlx_close_window(info->mlx);
 }
 
-void	hook(mlx_key_data_t keydata, void	*param)
+void	hook2(t_info *info)
 {
-	t_info			*info;
-	double			c_offs;
+	if (mlx_is_key_down(info->mlx, MLX_KEY_1))
+	{
+		info->name = 1;
+		reset_fract(info);
+	}
+	if (mlx_is_key_down(info->mlx, MLX_KEY_2))
+	{
+		info->name = 2;
+		reset_fract(info);
+	}
+	if (mlx_is_key_down(info->mlx, MLX_KEY_3))
+	{
+		info->name = 3;
+		reset_fract(info);
+	}
+	if (mlx_is_key_down(info->mlx, MLX_KEY_A))
+		info->smooth = 0;
+	if (mlx_is_key_down(info->mlx, MLX_KEY_S))
+		info->smooth = 1;
+	hook3(info);
+}
 
-	info = (t_info *)param;
-	c_offs = LIMIT * info->zoom * 0.02;
-	if (keydata.key == MLX_KEY_ESCAPE)
+void	hook(void	*param)
+{
+	t_info	*info;
+	t_move	m;
+
+	info = param;
+	if (mlx_is_key_down(info->mlx, MLX_KEY_UP))
+		info->offset_y += -(LIMIT * info->zoom * 0.02);
+	if (mlx_is_key_down(info->mlx, MLX_KEY_DOWN))
+		info->offset_y -= -(LIMIT * info->zoom * 0.02);
+	if (mlx_is_key_down(info->mlx, MLX_KEY_RIGHT))
+		info->offset_x += LIMIT * info->zoom * 0.02;
+	if (mlx_is_key_down(info->mlx, MLX_KEY_LEFT))
+		info->offset_x -= LIMIT * info->zoom * 0.02;
+	if (mlx_is_key_down(info->mlx, MLX_KEY_J) && info->name == 2)
 	{
-	//	mlx_delete_image(info->mlx);
-		exit(EXIT_SUCCESS);
+		mlx_get_mouse_pos(info->mlx, &m.mx, &m.my);
+		m.d_mx = m.mx - SIZE / 2;
+		m.d_my = m.my - SIZE / 2;
+		info->args.real = m.d_mx / 100;
+		info->args.imag = m.d_my / 100;
+		reset_fract(info);
 	}
-	if (keydata.action == MLX_RELEASE)
-	{
-		if (keydata.key == MLX_KEY_UP)
-			info->offset_y += -c_offs;
- 		if (keydata.key == MLX_KEY_DOWN)
-			info->offset_y -= -c_offs;
-		if (keydata.key == MLX_KEY_RIGHT)
-			info->offset_x += c_offs;
-		if (keydata.key == MLX_KEY_LEFT)
-			info->offset_x -= c_offs;
-		else
-			hook2(keydata, info);
-	}
+	hook2(info);
 	print_fractal(info);
 }
 
-/* void	my_keyhook(mlx_key_data_t mlx_keydata, void *param)
-{
-	t_info			*info;
-
-	info = (t_info *)param;
-	if (mlx_keydata.action == MLX_RELEASE)
-		info->keydata.key = mlx_keydata.key;
-} // Versión 2 */
-
-/* void	 zoom(t_info *info, int direc)
-{
-	if (direc > 0)
-	{
-		printf("%f\n", info->zoom);
-		info->zoom -= 0.1;
-		puts("Zoom in");
-	}
-	else
-	{
-		info->zoom += 0.1;
-		puts("Zoom out");
-	}
-} */
-
-void	my_scrollhook(double x, double y, void *param)
+void	shook(double x, double y, void *param)
 {
 	t_info	*info;
+	t_move	m;
 
 	info = (t_info *)param;
 	(void)x;
+	mlx_get_mouse_pos(info->mlx, &m.mx, &m.my);
+	if (m.mx < 0 || m.mx >= SIZE || m.my < 0 || m.my >= SIZE)
+		return ;
+	m.d_mx = (m.mx - SIZE / 2) * info->zoom / SIZE;
+	m.d_my = (m.my - SIZE / 2) * info->zoom / SIZE;
 	if (y > 0)
 		info->zoom /= 1.1;
 	else
 		info->zoom *= 1.1;
+	info->offset_x += m.d_mx - (m.mx - SIZE / 2) * info->zoom / SIZE;
+	info->offset_y += m.d_my - (m.my - SIZE / 2) * info->zoom / SIZE;
 	print_fractal(info);
 }

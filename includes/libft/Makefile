@@ -36,12 +36,24 @@ CFLAGS = -Wall -Werror -Wextra
 RM = rm -rf
 AR = ar rcs
 
+#//= Colors =//#
+BOLD	:= \033[1m
+BLACK	:= \033[30;1m
+RED		:= \033[31;1m
+GREEN	:= \033[32;1m
+YELLOW	:= \033[33;1m
+BLUE	:= \033[34;1m
+MAGENTA	:= \033[35;1m
+CYAN	:= \033[36;1m
+WHITE	:= \033[37;1m
+RESET	:= \033[0m
+
 all: $(NAME)
 
 $(NAME): $(OBJ)
 	@ mkdir -p $(OBJ_PATH)
 	@ $(AR) $(NAME) $(OBJ)
-	@ echo "\n\t\t\033[32m----Library compiled----\n"
+	@ echo "\n\t\t  $(GREEN)$(BOLD)----Libft compiled----$(BOLD)$(GREEN)\n"
 
 $(OBJ_LIBFT_PATH)%.o: $(SOURCE_LIBFT_PATH)%.c
 	@ mkdir -p $(OBJ_LIBFT_PATH)

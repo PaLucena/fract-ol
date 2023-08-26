@@ -10,111 +10,47 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/fractol.h"
-
-void	mandelbrot(t_info *info);
-void	julia(t_info *info);
-void	burningship(t_info *info);
-
-
-void	fractal(t_info *info)
-{
-	if (info->name == 1)
-		mandelbrot(info);
-	else if (info->name == 2)
-		julia(info);
-	else if (info->name == 3)
-		burningship(info); // Paso a paso
-	else
-		exit (1);
-}
+#include "fractol.h"
 
 void	print_fractal(t_info *info)
 {
 	info->pos_y = 0;
-	while (info->pos_y < HEIGHT)
+	while (info->pos_y < SIZE)
 	{
 		info->pos_x = -1;
-		while (++info->pos_x < WIDTH)
-			fractal(info);
+		while (++info->pos_x < SIZE)
+		{
+			if (info->name == 1 || info->name == 3)
+				mandelship(info);
+			else if (info->name == 2)
+				julia(info);
+		}
 		info->pos_y++;
 	}
 }
 
-void	mandelbrot(t_info *info)
+void	fractal(t_info *info)
 {
-	double	cx;
-	double	cy;
 	double	tmp;
 	int		i;
 
-	cx = (info->pos_x - WIDTH / 2) * info->zoom / WIDTH + info->offset_x;
-	cy = (info->pos_y - HEIGHT / 2) * info->zoom / HEIGHT + info->offset_y;
 	i = 1;
-	info->zx = 0.0;
-	info->zy = 0.0;
 	while (i <= info->max_iterations)
 	{
-		tmp = info->zx * info->zx - info->zy * info->zy + cx;
-		info->zy = 2 * info->zx * info->zy + cy;
+		if (info->name == 3)
+		{
+			info->zx = fabs(info->zx);
+			info->zy = fabs(info->zy);
+		}
+		tmp = info->zx * info->zx - info->zy * info->zy + info->cx;
+		info->zy = 2 * info->zx * info->zy + info->cy;
 		info->zx = tmp;
 		if (fabs(info->zx) + fabs(info->zy) >= LIMIT)
 			break ;
 		i++;
 	}
-	draw_pixel(info, i);
+	ft_put_pixel(info, i);
 }
-
-void	julia(t_info *info)
-{
-	double	cx;
-	double	cy;
-	double	tmp;
-	int		i;
-
-	cx = -0.65; //
-	cy = -0.45; //
-	i = 1;
-	info->zx = ((info->pos_x - WIDTH / 2 + info->offset_x) * info->zoom / WIDTH) * (-1);
-	info->zy = ((info->pos_y - HEIGHT / 2 + info->offset_y) * info->zoom / HEIGHT) * (-1);
-	while (i <= info->max_iterations)
-	{
-		tmp = info->zx * info->zx - info->zy * info->zy + cx;
-		info->zy = 2 * info->zx * info->zy + cy;
-		info->zx = tmp;
-		if (fabs(info->zx) + fabs(info->zy) >= LIMIT)
-			break ;
-		i++;
-	}
-	draw_pixel(info, i);
-}
-
-void	burningship(t_info *info)
-{
-	double	cx;
-	double	cy;
-	double	tmp;
-	int		i;
-
-	//info->offset_y = -0.4;
-	cx = (info->pos_x - WIDTH / 2) * info->zoom / WIDTH + info->offset_x;
-	cy = (info->pos_y - HEIGHT / 2) * info->zoom / HEIGHT + info->offset_y;
-	i = 1;
-	info->zx = 0.0;
-	info->zy = 0.0;
-	while (i <= info->max_iterations)
-	{
-		info->zx = fabs(info->zx);
-		info->zy = fabs(info->zy);
-		tmp = info->zx * info->zx - info->zy * info->zy + cx;
-		info->zy = 2 * info->zx * info->zy + cy;
-		info->zx = tmp;
-		if (fabs(info->zx) + fabs(info->zy) >= LIMIT)
-			break ;
-		i++;
-	}
-	draw_pixel(info, i);
-} // No funciona YET
 
 /* void	el4(t_info *info)
 {
@@ -123,8 +59,8 @@ void	burningship(t_info *info)
 	double	tmp;
 	int		i;
 
-	cx = (info->pos_x - WIDTH / 2) * info->zoom / WIDTH + info->offset_x;
-	cy = (info->pos_y - HEIGHT / 2) * info->zoom / HEIGHT + info->offset_y;
+	cx = (info->pos_x - SIZE / 2) * info->zoom / SIZE + info->offset_x;
+	cy = (info->pos_y - SIZE / 2) * info->zoom / SIZE + info->offset_y;
 	i = 1;
 	info->zx = 0.0;
 	info->zy = 0.0;
@@ -148,8 +84,8 @@ void	burningship(t_info *info)
 	double	tmp;
 	int		i;
 
-	x = WIDTH / (-2) + info->pos_x;
-	y = HEIGHT / (-2) + info->pos_y;
+	x = SIZE / (-2) + info->pos_x;
+	y = SIZE / (-2) + info->pos_y;
 	info->zx = 0.0;
 	info->zy = 0.0;
 	i = 0;

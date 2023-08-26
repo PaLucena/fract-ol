@@ -6,16 +6,15 @@
 /*   By: palucena <palucena@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 20:38:50 by palucena          #+#    #+#             */
-/*   Updated: 2023/08/24 16:56:36 by palucena         ###   ########.fr       */
+/*   Updated: 2023/08/26 19:16:44 by palucena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FRACTOL_H
 # define FRACTOL_H
 
-#define WIDTH 600
-#define HEIGHT 600
-#define LIMIT 2.0
+# define SIZE 700
+# define LIMIT 3.5
 
 # include <unistd.h>
 # include <stdio.h>
@@ -26,45 +25,85 @@
 # include <sys/wait.h>
 # include <math.h>
 # include "libft/libft.h"
-# include "../includes/MLX42/include/MLX42/MLX42.h"
+# include "./MLX42/include/MLX42/MLX42.h"
+
+typedef struct s_rgba
+{
+	uint8_t		b;
+	uint8_t		g;
+	uint8_t		r;
+	uint8_t		a;
+}	t_rgba;
+
+typedef struct s_palette
+{
+	uint8_t		count;
+	int			cycle;
+	int			colors[16];
+}	t_palette;
+
+typedef union u_color
+{
+	int			value;
+	t_rgba		rgba;
+}					t_color;
+
+typedef struct s_move
+{
+	int32_t	mx;
+	int32_t	my;
+	double	d_mx;
+	double	d_my;
+}		t_move;
+
+typedef struct s_args
+{
+	double	real;
+	double	imag;
+}			t_args;
 
 typedef struct s_info
 {
-	int						name;
-	mlx_t					*mlx; // instance
-	mlx_image_t				*win; // image
-	int32_t					pos_x; // valor de x en la ventana
-	int32_t					pos_y; // valor de y en la ventana
-	double					zx;
-	double					zy;
-	double					zoom;
-	double					offset_x;
-	double					offset_y;
-	int						max_iterations;
-//	struct mlx_key_data		keydata;
+	int			name;
+	mlx_t		*mlx;
+	mlx_image_t	*win;
+	int32_t		pos_x;
+	int32_t		pos_y;
+	double		zx;
+	double		zy;
+	double		cx;
+	double		cy;
+	double		zoom;
+	double		offset_x;
+	double		offset_y;
+	int			max_iterations;
+	int			color;
+	bool		smooth;
+	t_args		args;
+	t_palette	*palette;
+	t_palette	*palettes;
 }			t_info;
 
+void		print_fractal(t_info *info);
+void		fractal(t_info *info);
 
+void		hook(void	*param);
+void		shook(double x, double y, void *param);
+void		mhook(mouse_key_t b, action_t a, modifier_key_t mods, void *param);
 
-/*				fractal.c				*/
-void	print_fractal(t_info *info);
+t_info		*create_window(void);
+void		ft_put_pixel(t_info *info, int i);
 
-/*				hooks.c					*/
-void		hook(mlx_key_data_t keydata, void *param);
-//void		my_keyhook(mlx_key_data_t mlx_keydata, void *param);
-void		my_scrollhook(double x, double y, void *param);
-//void	my_mousehook(mouse_key_t m_code, action_t x, modifier_key_t y, void *param);
-/*				image.c					*/
-void		draw_pixel(t_info *info, int	n);
+t_color		get_color_struct(t_info *info, int i);
 
-/*				init.c					*/
-void		init_fract(t_info *info);
-t_info		*create_window(char *name);
+void		init_fract(t_info *info, char **av);
+void		reset_fract(t_info *info);
+void		mandelship(t_info *info);
+void		julia(t_info *info);
 
-/*				utils.c					*/
+t_palette	*ft_get_palettes(void);
 int			check_name(char *name);
 void		error_msg(void);
-//double		ft_atof(char *nb);
-
+double		ft_atof(char *str);
 
 #endif
