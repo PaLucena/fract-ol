@@ -6,7 +6,7 @@
 /*   By: palucena <palucena@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 16:50:15 by palucena          #+#    #+#             */
-/*   Updated: 2023/08/26 19:44:22 by palucena         ###   ########.fr       */
+/*   Updated: 2023/08/27 17:04:17 by palucena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ t_info	*create_window(void)
 	if (!info->win)
 		exit(EXIT_FAILURE);
 	reset_fract(info);
+	usage();
 	mlx_image_to_window(info->mlx, info->win, 0, 0);
 	mlx_loop_hook(info->mlx, &hook, (void *)info);
 	mlx_scroll_hook(info->mlx, &shook, (void *)info);
@@ -43,7 +44,12 @@ void	ft_put_pixel(t_info *info, int iter)
 	uint32_t	color;
 
 	if (iter >= info->max_iterations)
-		mlx_put_pixel(info->win, info->pos_x, info->pos_y, 0x000000FF);
+	{
+		if (info->color == 1)
+			mlx_put_pixel(info->win, info->pos_x, info->pos_y, 0xFFFFFFFF);
+		else
+			mlx_put_pixel(info->win, info->pos_x, info->pos_y, 0x000000FF);
+	}
 	else
 	{
 		c = get_color_struct(info, iter);

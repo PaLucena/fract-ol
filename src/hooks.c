@@ -6,7 +6,7 @@
 /*   By: palucena <palucena@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 16:41:45 by palucena          #+#    #+#             */
-/*   Updated: 2023/08/26 19:40:17 by palucena         ###   ########.fr       */
+/*   Updated: 2023/08/27 15:42:29 by palucena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void	hook3(t_info *info)
 {
-	if (mlx_is_key_down(info->mlx, MLX_KEY_O))
+	if (mlx_is_key_down(info->mlx, MLX_KEY_Z))
 		info->max_iterations -= 5;
-	if (mlx_is_key_down(info->mlx, MLX_KEY_P))
+	if (mlx_is_key_down(info->mlx, MLX_KEY_X))
 		info->max_iterations += 5;
 	if (mlx_is_key_down(info->mlx, MLX_KEY_4))
 	{

@@ -6,7 +6,7 @@
 /*   By: palucena <palucena@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 20:38:50 by palucena          #+#    #+#             */
-/*   Updated: 2023/08/26 19:16:44 by palucena         ###   ########.fr       */
+/*   Updated: 2023/08/27 17:05:25 by palucena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ void		julia(t_info *info);
 
 t_palette	*ft_get_palettes(void);
 int			check_name(char *name);
+void		usage(void);
 void		error_msg(void);
 double		ft_atof(char *str);
 

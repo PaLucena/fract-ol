@@ -6,7 +6,7 @@
 /*   By: palucena <palucena@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 13:15:51 by palucena          #+#    #+#             */
-/*   Updated: 2023/08/26 19:33:40 by palucena         ###   ########.fr       */
+/*   Updated: 2023/08/27 17:17:41 by palucena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@ t_palette	*ft_get_palettes(void)
 	static t_palette	array[3];
 
 	array[0]
-		= (t_palette){5, 0, {0x757575, 0xE0E0E0, 0xEEEEEE, 0xFAFAFA, 0x212121}};
+		= (t_palette){5, 0, {0x212121, 0x757575, 0xE0E0E0, 0xEEEEEE, 0x4C4C4C}};
 	array[1]
-		= (t_palette){5, 0, {0x000000, 0x004D40, 0x33691E, 0x33691E, 0xF57F17}};
+		= (t_palette){5, 0, {0xC0C0C0, 0x777777, 0x4D4D4D, 0x2A2A2A, 0x000000}};
 	array[2]
-		= (t_palette){5, 0, {0xDAF7A6, 0xFFC300, 0xFF5733, 0xC70039, 0x900C3F}};
+		= (t_palette){5, 0, {0x610B4B, 0x01A9DB, 0xF4FA58, 0xFE642E, 0xB40404}};
 	return (array);
 }
 
@@ -35,6 +35,19 @@ int	check_name(char *name)
 		return (3);
 	else
 		return (0);
+}
+
+void	usage(void)
+{
+	ft_putstr_fd("Usage:\n", 1);
+	ft_putstr_fd("\tArrows -> Move\n", 1);
+	ft_putstr_fd("\tScroll -> Zoom\n", 1);
+	ft_putstr_fd("\t1/2/3 --> Select between fractal\n", 1);
+	ft_putstr_fd("\t4/5/6 --> Change color set\n", 1);
+	ft_putstr_fd("\tA/S ----> Activate/Deactivate smooth colors\n", 1);
+	ft_putstr_fd("\tZ/X ----> Bigger/Lower iteration max\n", 1);
+	ft_putstr_fd("\tJ ------> If in Julia set, ", 1);
+	ft_putstr_fd("change 'c' to the mouse coordinates\n", 1);
 }
 
 void	error_msg(void)
