@@ -6,7 +6,7 @@
 /*   By: palucena <palucena@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 20:38:50 by palucena          #+#    #+#             */
-/*   Updated: 2023/08/27 17:05:25 by palucena         ###   ########.fr       */
+/*   Updated: 2023/08/28 15:37:42 by palucena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@
 
 typedef struct s_rgba
 {
-	uint8_t		b;
-	uint8_t		g;
 	uint8_t		r;
+	uint8_t		g;
+	uint8_t		b;
 	uint8_t		a;
 }	t_rgba;
 

@@ -45,7 +45,7 @@ void	fractal(t_info *info)
 		tmp = info->zx * info->zx - info->zy * info->zy + info->cx;
 		info->zy = 2 * info->zx * info->zy + info->cy;
 		info->zx = tmp;
-		if (fabs(info->zx) + fabs(info->zy) >= LIMIT)
+		if (info->zx * info->zx + info->zy * info->zy >= LIMIT * 2)
 			break ;
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: palucena <palucena@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 18:40:33 by palucena          #+#    #+#             */
-/*   Updated: 2023/08/26 19:39:49 by palucena         ###   ########.fr       */
+/*   Updated: 2023/08/28 14:47:29 by palucena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	mandelship(t_info *info)
 	info->zy = 0.0;
 	fractal(info);
 }
-
+ 
 void	julia(t_info *info)
 {
 	double	zoom_s;
