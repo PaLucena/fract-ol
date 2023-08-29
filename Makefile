@@ -29,8 +29,6 @@ RESET	:= \033[0m
 
 all: mlx libft $(NAME)
 
-bonus: libft $(NAME_BONUS)
-
 $(NAME): $(OBJ)
 	@ gcc $(SEGFAULT_FLAG) $(FLAGS) $(OBJ) $(LIBFT) $(MLX) -lglfw -L $(BREW) -o $(NAME)
 	@ echo "\n\t\t$(GREEN)$(BOLD)----Fract'ol compiled----\n"
@@ -47,16 +45,14 @@ mlx:
 
 re: fclean all
 
-re_bonus: fclean bonus
-
 clean:
 	@ $(RM) -r $(OBJ_PATH)
 	@ make -C includes/libft/ clean
 	@ echo "\n\t\t\t$(RED)$(BOLD)Cleaning...\n"
 
 fclean: clean
-	@ $(RM) $(NAME) $(NAME_BONUS)
+	@ $(RM) $(NAME)
 	@ make -C includes/libft/ fclean
 	@ make -C includes/MLX42/ fclean
 
-.PHONY: all bonus libft mlx re re_bonus clean fclean
+.PHONY: all libft mlx re clean fclean
