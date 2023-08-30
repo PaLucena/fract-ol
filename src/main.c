@@ -6,7 +6,7 @@
 /*   By: palucena <palucena@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 21:15:01 by palucena          #+#    #+#             */
-/*   Updated: 2023/08/26 19:04:57 by palucena         ###   ########.fr       */
+/*   Updated: 2023/08/30 17:54:02 by palucena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,11 @@ int32_t	main(int ac, char **av)
 	{
 		if (ac <= 1 || ac == 3 || ac >= 5)
 			error_msg();
-		else if ((ac == 4 && check_name(av[1]) != 2) || check_name(av[1]) == 0)
+		else if ((ac == 4 && check_name(av[1]) != 2))
 			error_msg();
 	}
+	else if (check_name(av[1]) == 0)
+		error_msg();
 	info = create_window();
 	init_fract(info, av);
 	print_fractal(info);
