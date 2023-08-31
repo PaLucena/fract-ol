@@ -6,7 +6,7 @@
 /*   By: palucena <palucena@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 20:38:50 by palucena          #+#    #+#             */
-/*   Updated: 2023/08/28 15:37:42 by palucena         ###   ########.fr       */
+/*   Updated: 2023/08/31 14:07:09 by palucena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ void		shook(double x, double y, void *param);
 void		mhook(mouse_key_t b, action_t a, modifier_key_t mods, void *param);
 
 t_info		*create_window(void);
+t_palette	*ft_get_palettes(void);
 void		ft_put_pixel(t_info *info, int i);
 
 t_color		get_color_struct(t_info *info, int i);
@@ -101,8 +102,8 @@ void		reset_fract(t_info *info);
 void		mandelship(t_info *info);
 void		julia(t_info *info);
 
-t_palette	*ft_get_palettes(void);
 int			check_name(char *name);
+int			julia_params(char *p);
 void		usage(void);
 void		error_msg(void);
 double		ft_atof(char *str);

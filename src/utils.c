@@ -6,25 +6,26 @@
 /*   By: palucena <palucena@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 13:15:51 by palucena          #+#    #+#             */
-/*   Updated: 2023/08/28 15:21:41 by palucena         ###   ########.fr       */
+/*   Updated: 2023/08/31 14:06:16 by palucena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-t_palette	*ft_get_palettes(void)
+int	julia_params(char *p)
 {
-	static t_palette	array[3];
+	int	i;
 
-	array[0]
-		= (t_palette){5, 0, {0x212121, 0x757575, 0xE0E0E0, 0xEEEEEE, 0x4C4C4C}};
-	array[1]
-		= (t_palette){5, 0, {0xC0C0C0, 0x777777, 0x4D4D4D, 0x2A2A2A, 0x000000}};
-	array[2]
-		= (t_palette){5, 0, {0x610B4B, 0x01A9DB, 0xF4FA58, 0xFE642E, 0xB40404}};
-
-
-	return (array);
+	i = 0;
+	while (p[i])
+	{
+		if (p[0] == '-' || p[0] == '+')
+			i++;
+		if (ft_isdigit(p[i]) == 0 && p[i] != '.')
+			return (0);
+		i++;
+	}
+	return (1);
 }
 
 int	check_name(char *name)
