@@ -2,7 +2,7 @@ NAME = fractol
 
 CC = gcc
 FLAGS = -Wall -Wextra -Werror -g
-SEGFAULT_FLAG = -fsanitize=address  # para ver donde hay segmentation fault #
+SEGFAULT_FLAG = -fsanitize=address
 RM = rm -rf
 
 SRC_PATH = src/
@@ -30,7 +30,7 @@ RESET	:= \033[0m
 all: mlx libft $(NAME)
 
 $(NAME): $(OBJ)
-	@ gcc $(SEGFAULT_FLAG) $(FLAGS) $(OBJ) $(LIBFT) $(MLX) -lglfw -L $(BREW) -o $(NAME)
+	@ gcc $(FLAGS) $(OBJ) $(LIBFT) $(MLX) -lglfw -L $(BREW) -o $(NAME)
 	@ echo "\n\t\t$(GREEN)$(BOLD)----Fract'ol compiled----\n"
 
 $(OBJ_PATH)%.o: $(SRC_PATH)%.c

@@ -6,14 +6,20 @@
 /*   By: palucena <palucena@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 21:15:01 by palucena          #+#    #+#             */
-/*   Updated: 2023/08/31 14:04:58 by palucena         ###   ########.fr       */
+/*   Updated: 2023/09/05 16:42:36 by palucena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
+void ft_leaks(void)
+{
+	system("leaks -q fractol");
+}
+
 int32_t	main(int ac, char **av)
 {
+	atexit(ft_leaks);
 	t_info	*info;
 
 	if (ac != 2)
