@@ -5,9 +5,9 @@
 
 <table>
 	<tr>
-		<td><img src="https://github.com/PaLucena/fract-ol/blob/main/img/mandelbrot.PNG"></td>
-		<td><img src="https://github.com/PaLucena/fract-ol/blob/main/img/julia.PNG"></td>
-		<td><img src="https://github.com/PaLucena/fract-ol/blob/main/img/burningship.PNG"></td>
+		<td align="center"><img src="https://github.com/PaLucena/fract-ol/blob/main/img/mandelbrot.PNG"></td>
+		<td align="center"><img src="https://github.com/PaLucena/fract-ol/blob/main/img/julia.PNG"></td>
+		<td align="center"><img src="https://github.com/PaLucena/fract-ol/blob/main/img/burningship.PNG"></td>
 	</tr>
 </table>
 
