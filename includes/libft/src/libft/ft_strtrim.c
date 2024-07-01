@@ -32,7 +32,7 @@ int	ft_start(char const *s1, char const *set)
 		}
 		if (j == ft_strlen(set))
 			return (i);
-			j = 0;
+		j = 0;
 	}
 	return (0);
 }

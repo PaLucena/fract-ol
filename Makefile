@@ -14,6 +14,7 @@ BREW = "/Users/$(USER)/.brew/opt/glfw/lib/"
 INC = -I includes/libft -I ./includes -I ./includes/MLX42/include/MLX42
 MLX = includes/MLX42/libmlx42.a
 LIBFT = includes/libft/libft.a
+LDFLAGS=-L/usr/lib -lglfw -lm
 
 #//= Colors =//#
 BOLD	:= \033[1m
@@ -30,7 +31,7 @@ RESET	:= \033[0m
 all: mlx libft $(NAME)
 
 $(NAME): $(OBJ)
-	@ gcc $(FLAGS) $(OBJ) $(LIBFT) $(MLX) -lglfw -L $(BREW) -o $(NAME)
+	@ gcc $(FLAGS) $(OBJ) $(LIBFT) $(MLX) -lglfw -L $(BREW) -o $(NAME) $(LDFLAGS)
 	@ echo "\n\t\t$(GREEN)$(BOLD)----Fract'ol compiled----\n"
 
 $(OBJ_PATH)%.o: $(SRC_PATH)%.c
