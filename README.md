@@ -1,7 +1,15 @@
 <h1 align="center">fract'ol</h1>
 
 <h2>Description</h2>
-<p><strong>fract'ol</strong> is a project from the 42 cursus that involves creating a program to visualize various fractals, such as the Mandelbrot set, the Julia set, and others. The main objective is to learn more about complex numbers, fractal mathematics, and graphical rendering using the MiniLibX library.</p>
+<p><strong>fract'ol</strong> is a project from the 42 cursus that involves creating a program to visualize various fractals, such as the Mandelbrot set, the Julia set, and others. The main objective is to learn more about complex numbers, fractal mathematics, and graphical rendering using the MLX42 library.</p>
+
+<table>
+	<tr>
+		<td><img src="https://github.com/PaLucena/fract-ol/blob/main/img/mandelbrot.PNG"></td>
+		<td><img src="https://github.com/PaLucena/fract-ol/blob/main/img/julia.PNG"></td>
+		<td><img src="https://github.com/PaLucena/fract-ol/blob/main/img/burningship.PNG"></td>
+	</tr>
+</table>
 
 <h2>Table of Contents</h2>
 <ul>
@@ -19,7 +27,7 @@
     <li>A Unix operating system (Linux or macOS).</li>
     <li>gcc or any C compiler.</li>
     <li>Make.</li>
-    <li>MiniLibX library.</li>
+    <li>MLX42 library.</li>
     <li>GLFW library.</li>
 </ul>
 
