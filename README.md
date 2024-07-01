@@ -1,4 +1,4 @@
-<h1>fract'ol</h1>
+<h1 align="center">fract'ol</h1>
 
 <h2>Description</h2>
 <p><strong>fract'ol</strong> is a project from the 42 cursus that involves creating a program to visualize various fractals, such as the Mandelbrot set, the Julia set, and others. The main objective is to learn more about complex numbers, fractal mathematics, and graphical rendering using the MiniLibX library.</p>
