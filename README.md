@@ -25,8 +25,8 @@
 
 <h2 id="installation">Installation</h2>
 <p>Clone the project repository and navigate to the main directory:</p>
-<pre><code>git clone https://github.com/your-username/fractol.git
-cd fractol</code></pre>
+<pre><code>git clone https://github.com/PaLucena/fract-ol.git
+cd fract-ol</code></pre>
     <p>Compile the project using the included Makefile:</p>
     <pre><code>make</code></pre>
     <p>This will generate the <code>fractol</code> executable in the current directory.</p>
